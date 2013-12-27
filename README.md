@@ -1,5 +1,7 @@
 # Card Library
 
+**Backport of the Card Library to API 10**
+
 **Card Library** provides an easy way to display a UI Card in your Android app.
 
 You can display **single cards**, **list** of cards and a **grid** of Cards.
