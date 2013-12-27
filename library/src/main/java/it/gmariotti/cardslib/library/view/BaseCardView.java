@@ -38,7 +38,7 @@ import it.gmariotti.cardslib.library.view.component.CardThumbnailView;
  *
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
-public class BaseCardView extends LinearLayout implements CardViewInterface {
+public class BaseCardView extends NineLinearLayout implements CardViewInterface {
 
     protected static String TAG = "BaseCardView";
 

@@ -35,6 +35,7 @@ import it.gmariotti.cardslib.library.R;
 import it.gmariotti.cardslib.library.internal.base.BaseCardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
 import it.gmariotti.cardslib.library.view.CardView;
+import it.gmariotti.cardslib.library.view.UndoLayout;
 import it.gmariotti.cardslib.library.view.listener.SwipeDismissListViewTouchListener;
 import it.gmariotti.cardslib.library.view.listener.UndoBarController;
 import it.gmariotti.cardslib.library.view.listener.UndoCard;
@@ -221,7 +222,7 @@ public class CardArrayAdapter extends BaseCardArrayAdapter implements UndoBarCon
     /**
      * Listener invoked when a card is swiped
      */
-    SwipeDismissListViewTouchListener.DismissCallbacks mCallback = new SwipeDismissListViewTouchListener.DismissCallbacks() {
+    SwipeDismissListViewTouchListener.IOnDismissCallback mCallback = new SwipeDismissListViewTouchListener.IOnDismissCallback() {
 
         @Override
         public boolean canDismiss(int position, Card card) {
@@ -352,7 +353,7 @@ public class CardArrayAdapter extends BaseCardArrayAdapter implements UndoBarCon
 
             //Create a UndoController
             if (mUndoBarController==null){
-                View undobar = ((Activity)mContext).findViewById(R.id.list_card_undobar);
+                UndoLayout undobar = (UndoLayout) ((Activity)mContext).findViewById(R.id.list_card_undobar);
                 if (undobar != null) {
                     mUndoBarController = new UndoBarController(undobar, this);
                 }

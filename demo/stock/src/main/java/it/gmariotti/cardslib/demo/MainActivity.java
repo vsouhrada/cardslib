@@ -19,16 +19,17 @@
 package it.gmariotti.cardslib.demo;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -64,7 +65,7 @@ import it.gmariotti.cardslib.demo.iabutils.IabHelper;
 import it.gmariotti.cardslib.demo.iabutils.IabResult;
 import it.gmariotti.cardslib.demo.iabutils.IabUtil;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
     private ListView mDrawerList;
     private DrawerLayout mDrawer;
@@ -115,8 +116,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.demo_activity_main);
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -154,7 +155,7 @@ public class MainActivity extends Activity {
         if (savedInstanceState != null) {
             mSelectedFragment = savedInstanceState.getInt(BUNDLE_SELECTEDFRAGMENT);
 
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             if (fragmentManager.findFragmentById(R.id.fragment_main)==null)
                 mBaseFragment = selectFragment(mSelectedFragment);
@@ -243,14 +244,14 @@ public class MainActivity extends Activity {
 
         @Override
         public void onDrawerClosed(View view) {
-            getActionBar().setTitle(getString(mCurrentTitle));
-            invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+          getSupportActionBar().setTitle(getString(mCurrentTitle));
+          supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
         }
 
         @Override
         public void onDrawerOpened(View drawerView) {
-            getActionBar().setTitle(getString(R.string.app_name));
-            invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+          getSupportActionBar().setTitle(getString(R.string.app_name));
+          supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
         }
     }
 
@@ -348,7 +349,7 @@ public class MainActivity extends Activity {
 
     private void openDialogFragment(DialogFragment dialogStandardFragment) {
         if (dialogStandardFragment != null) {
-            FragmentManager fm = getFragmentManager();
+            FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             Fragment prev = fm.findFragmentByTag("carddemo_dialog");
             if (prev != null) {
@@ -362,7 +363,7 @@ public class MainActivity extends Activity {
 
     private void openFragment(BaseFragment baseFragment) {
         if (baseFragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             fragmentTransaction.replace(R.id.fragment_main, baseFragment);

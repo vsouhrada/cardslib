@@ -24,6 +24,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,7 +33,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
-import android.widget.ShareActionProvider;
 
 import java.io.File;
 
@@ -108,7 +109,7 @@ public class GPlayCardFragment extends BaseFragment {
         MenuItem item = menu.findItem(R.id.carddemo_menu_item_share);
 
         // Fetch and store ShareActionProvider
-        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         mShareActionProvider.setShareIntent(getShareIntent());
 
         super.onCreateOptionsMenu(menu,inflater);
@@ -163,7 +164,7 @@ public class GPlayCardFragment extends BaseFragment {
         if (mShareActionProvider != null) {
 
             photofile = BitmapUtils.createFileFromBitmap(cardViewGmap.createBitmap());
-            getActivity().invalidateOptionsMenu();
+            getActivity().supportInvalidateOptionsMenu();
         }
     }
 

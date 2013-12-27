@@ -19,7 +19,7 @@
 
 <resources>
 
-    <style name="Theme.Carddemo" parent="@android:style/Theme.Holo.Light">
+    <style name="Theme.Carddemo" parent="Theme.AppCompat.Light">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_carddemo</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Carddemo</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Carddemo</item>

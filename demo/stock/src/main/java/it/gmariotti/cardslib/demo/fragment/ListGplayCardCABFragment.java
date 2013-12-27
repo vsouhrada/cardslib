@@ -74,7 +74,7 @@ public class ListGplayCardCABFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         if (mActionMode!=null){
-            mActionMode.finish();
+            mActionMode.finish(); // TODO Fix it for API < 11
         }
     }
 
@@ -121,7 +121,7 @@ public class ListGplayCardCABFragment extends BaseFragment {
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             super.onCreateActionMode(mode, menu);
             mActionMode=mode;
-            MenuInflater inflater = mode.getMenuInflater();
+            MenuInflater inflater = mode.getMenuInflater(); // TODO Fix it for API < 11
             inflater.inflate(R.menu.carddemo_multichoice, menu);
             return true;
         }
@@ -150,7 +150,7 @@ public class ListGplayCardCABFragment extends BaseFragment {
         }
 
         private void discardSelectedItems(ActionMode mode) {
-            SparseBooleanArray checked = mCardListView.getCheckedItemPositions();
+            SparseBooleanArray checked = mCardListView.getCheckedItemPositions(); // TODO Fix it for API < 11
             Card[] items = new Card[checked.size()];
 
             for (int i =  checked.size()-1; i>=0; i--) {
@@ -161,11 +161,11 @@ public class ListGplayCardCABFragment extends BaseFragment {
             for (Card item : items) {
                 remove(item);
             }
-            mode.finish();
+            mode.finish(); // TODO Fix it for API < 11
         }
 
         private String formatCheckedCard() {
-            SparseBooleanArray checked = mCardListView.getCheckedItemPositions();
+            SparseBooleanArray checked = mCardListView.getCheckedItemPositions(); // TODO Fix it for API < 11
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < checked.size(); i++) {
                 if (checked.valueAt(i) == true) {

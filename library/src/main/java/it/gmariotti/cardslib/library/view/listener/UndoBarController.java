@@ -1,7 +1,7 @@
 package it.gmariotti.cardslib.library.view.listener;
 
 /*
- * Copyright 2013 Roman Nurik, Gabriele Mariotti
+ * Copyright 2013 Roman Nurik, Gabriele Mariotti, Vaclav Souhrada
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,20 @@ package it.gmariotti.cardslib.library.view.listener;
  * limitations under the License.
  */
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewPropertyAnimator;
 import android.widget.TextView;
 
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.view.ViewPropertyAnimator;
+
 import it.gmariotti.cardslib.library.R;
+import it.gmariotti.cardslib.library.view.UndoLayout;
+
 
 /**
  * It is based on Roman Nurik code.
@@ -37,7 +40,7 @@ import it.gmariotti.cardslib.library.R;
  */
 public class UndoBarController {
 
-    private View mBarView;
+    private UndoLayout mBarView;
     private TextView mMessageView;
     private ViewPropertyAnimator mBarAnimator;
     private Handler mHideHandler = new Handler();
@@ -58,9 +61,9 @@ public class UndoBarController {
         void onUndo(Parcelable undoToken);
     }
 
-    public UndoBarController(View undoBarView, UndoListener undoListener) {
+    public UndoBarController(UndoLayout undoBarView, UndoListener undoListener) {
         mBarView = undoBarView;
-        mBarAnimator = mBarView.animate();
+        mBarAnimator = mBarView.supportAnimate();
         mUndoListener = undoListener;
 
         mMessageView = (TextView) mBarView.findViewById(R.id.list_card_undobar_message);

@@ -28,9 +28,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.v4.util.LruCache;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +42,10 @@ import java.lang.ref.WeakReference;
 import java.net.URL;
 
 import it.gmariotti.cardslib.library.Constants;
+import it.gmariotti.cardslib.library.R;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.utils.CacheUtil;
 import it.gmariotti.cardslib.library.view.base.CardViewInterface;
-
-import it.gmariotti.cardslib.library.R;
 
 /**
  * Compound View for Thumbnail Component.

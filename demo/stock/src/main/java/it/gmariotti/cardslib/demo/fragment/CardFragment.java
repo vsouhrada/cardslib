@@ -19,7 +19,8 @@
 package it.gmariotti.cardslib.demo.fragment;
 
 import android.os.Bundle;
-import android.view.ActionMode;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -277,13 +278,14 @@ public class CardFragment extends BaseFragment {
             @Override
             public boolean onLongClick(Card card, View view) {
                 if (mActionMode != null) {
-                    view.setActivated(false);
+                    view.setActivated(false); // TODO replace it for API < 11
                     mActionMode.finish();
                     return false;
                 }
                 // Start the CAB using the ActionMode.Callback defined above
-                mActionMode = getActivity().startActionMode(mActionModeCallback);
-                view.setActivated(true);
+                mActionMode = ((ActionBarActivity) getActivity()).startSupportActionMode(mActionModeCallback);
+
+                view.setActivated(true); // TODO replace it for API < 11
                 return true;
             }
         });
@@ -335,7 +337,7 @@ public class CardFragment extends BaseFragment {
         public void onDestroyActionMode(ActionMode mode) {
             mActionMode = null;
             if (mCardCab!=null)
-                cardViewCab.setActivated(false);
+                cardViewCab.setActivated(false); // TODO replace it for API < 11
         }
     };
 

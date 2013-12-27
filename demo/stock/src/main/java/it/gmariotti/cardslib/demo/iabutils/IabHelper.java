@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.content.ServiceConnection;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -267,17 +268,21 @@ public class IabHelper {
 
         Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
         serviceIntent.setPackage("com.android.vending");
-        if (mContext!=null && !mContext.getPackageManager().queryIntentServices(serviceIntent, 0).isEmpty()) {
+        boolean isServiceAvailable = false;
+        if (mContext != null) {
+          List<ResolveInfo> servicesInfo = mContext.getPackageManager().queryIntentServices(serviceIntent, 0);
+          if (servicesInfo != null && !servicesInfo.isEmpty()) {
             // service available to handle that Intent
             mContext.bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+            isServiceAvailable = true;
+          }
         }
-        else {
+
+        if (!isServiceAvailable && listener != null) {
             // no service available to handle that Intent
-            if (listener != null) {
-                listener.onIabSetupFinished(
-                        new IabResult(BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE,
-                        "Billing service unavailable on device."));
-            }
+            listener.onIabSetupFinished(
+                    new IabResult(BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE,
+                    "Billing service unavailable on device."));
         }
     }
 

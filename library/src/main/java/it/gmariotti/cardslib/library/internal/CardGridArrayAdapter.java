@@ -32,6 +32,7 @@ import it.gmariotti.cardslib.library.view.CardGridView;
 import it.gmariotti.cardslib.library.view.CardView;
 import it.gmariotti.cardslib.library.view.listener.SwipeDismissListViewTouchListener;
 
+
 /**
  * Array Adapter for {@link Card} model.
  * Use it with a {@link CardGridView}.
