@@ -274,20 +274,6 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         if (dismiss && downPosition != ListView.INVALID_POSITION) {
           // dismiss
           dismiss(downView, downPosition, dismissRight);
-          /*final View downViewCopy = downView; // downView gets null'd before animation ends
-          final int downPosition = this.downPosition;
-          ++dismissAnimationRefCount;
-          animate(downView)
-                  .translationX(dismissRight ? viewWidth : -viewWidth)
-                  .alpha(0)
-                  .setDuration(animationTime)
-                  .setListener(new AnimatorListenerAdapter() {
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                      performDismiss(downViewCopy, downPosition);
-                    }
-                  });*/
         } else {
           // cancel
           animate(downView)
@@ -296,6 +282,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                   .setDuration(animationTime)
                   .setListener(null);
         }
+
         velocityTracker = null;
         downX = 0;
         downY = 0;
@@ -304,13 +291,14 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 
         if (swiping){
           // Cancel ListView's touch (un-highlighting the item)
-          MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
+          /*MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
           cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
                   (motionEvent.getActionIndex()
                           << MotionEvent.ACTION_POINTER_INDEX_SHIFT));
           listView.onTouchEvent(cancelEvent);
-          cancelEvent.recycle();
+          cancelEvent.recycle();*/
 
+          //To prevent onClick event with a fast swipe
           swiping = false;
 
           return true;
@@ -362,12 +350,15 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                   (motionEvent.getActionIndex()
                           << MotionEvent.ACTION_POINTER_INDEX_SHIFT));
           listView.onTouchEvent(cancelEvent);
+          view.onTouchEvent(cancelEvent);
+          cancelEvent.recycle();
         }
 
         if (swiping) {
           setTranslationX(downView, deltaX - swipingSlop);
-          setAlpha(downView, Math.max(0.15f, Math.min(1f,
+          setAlpha(downView, Math.max(0f, Math.min(1f,
                   1f - 2f * Math.abs(deltaX) / viewWidth)));
+
           return true;
         }
         break;
@@ -451,7 +442,9 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
             setAlpha(pendingDismiss.view, 1f);
             setTranslationX(pendingDismiss.view, 0);
             lp = pendingDismiss.view.getLayoutParams();
-            lp.height = originalHeight;
+            /*https://github.com/gabrielemariotti/cardslib/commit/c530cbedd81e9237c856cb4117ca5c803358c611#diff-0ea7eb52e116d1769da42bbbada1600fR389
+            //lp.height = originalHeight; */
+            lp.height = 0;
             pendingDismiss.view.setLayoutParams(lp);
           }
 
